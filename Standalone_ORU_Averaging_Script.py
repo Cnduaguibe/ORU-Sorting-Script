@@ -1,8 +1,9 @@
 # Objective: Read ORU data from text files and filter transmittance values, then average values for each file and print
 import os
+import re
 
 # This variable should be set to the folder containing ORU text files, modify string accordingly.
-path = r"C:\Users\cnduaguibe\Desktop\ORU_data"
+path = r"C:\Users\cnduaguibe\Desktop\ORU_Data2"
 
 # Searches the given directory and prints the name of any text files (ignoring other file types)
 # Also iterates through the files and averages the ORU reading values from each file, then prints to shell
@@ -22,7 +23,8 @@ for file in os.listdir(path):
                 start = reading_location + 10
                 end = start + 7
                 sliced_line = line[start:end]
-                ORU_reading_total += int(sliced_line)
+                digits = re.sub("\D", "", sliced_line)
+                ORU_reading_total += int(digits)
                 number_of_readings += 1
             # If a file is blank the script will print "File is blank." under the file name.
             # The additional print statement in the if/else statement below just separates each pair of printed lines
